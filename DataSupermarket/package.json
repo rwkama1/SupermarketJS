@@ -1,0 +1,15 @@
+{
+  "name": "data-supermarket",
+  "version": "0.0.0",
+  "description": "DataSupermarket",
+  "main": "DataPayCard.js",
+  "scripts": {
+    "start": "node DataPayCard"
+  },
+  "author": {
+    "name": "Carlos Rodriguez"
+  },
+  "dependencies": {
+    "mssql": "^6.2.3"
+  }
+}

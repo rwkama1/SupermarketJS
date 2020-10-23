@@ -1,0 +1,12 @@
+{
+  "name": "bussines-rules-supermarket",
+  "version": "0.0.0",
+  "description": "BussinesRulesSupermarket",
+  "main": "ControllerCash.js",
+  "scripts": {
+    "start": "node ControllerCash"
+  },
+  "author": {
+    "name": "Carlos Rodriguez"
+  }
+}

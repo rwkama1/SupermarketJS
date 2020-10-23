@@ -1,0 +1,9 @@
+{
+  "name": "entity-supermarket",
+  "version": "0.0.0",
+  "description": "EntitySupermarket",
+  "main": "app.js",
+  "author": {
+    "name": "Carlos Rodriguez"
+  }
+}

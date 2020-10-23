@@ -1,0 +1,15 @@
+{
+  "name": "payment-gateway",
+  "version": "0.0.0",
+  "description": "PaymentGateway",
+  "main": "paymentgateway.js",
+  "scripts": {
+    "start": "node paymentgateway"
+  },
+  "author": {
+    "name": "Carlos Rodriguez"
+  },
+  "dependencies": {
+    "card-validator": "^8.1.0"
+  }
+}
