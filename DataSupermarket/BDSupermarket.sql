@@ -17,6 +17,21 @@ CREATE TABLE Sale(
 	--NumberCardS varchar(200) NULL foreign key references CardPayment(NumberCardC)
 ) 
 go
+ CREATE TABLE CardPayment(
+	IdC int NOT NULL IDENTITY(1,1),
+	NumberCardC  varchar(200)  NOT NULL,
+	CustomerIDC bigint  NOT NULL,
+	primary key(IdC,NumberCardC)
+) 
+
+go
+CREATE TABLE Fees(
+	IdI int NOT NULL ,
+	NumberCardI varchar(200)  not NULL  foreign key references CardPayment(NumberCardC),
+	AmountI money not null,
+	Primary Key(IdI,NumberCardI)
+) 
+go
 CREATE TABLE DetailSale(
 	IdDS int NOT NULL IDENTITY(1,1) Primary key,
 	QuantityDS int NOT NULL,
@@ -44,7 +59,8 @@ go
 
 
  --select * from producto where IdProducto=2
-
+ --   drop table Fees
+ --  drop table CardPayment
  --drop table DetailSale
  --drop table Sale
  -- drop table Producto
@@ -52,18 +68,6 @@ go
   --select * from CardPayment
  --select * from Installments
 --Update Producto Set  ImgProducto='sdf.jpg' where IdProducto=12
- --CREATE TABLE CardPayment(
---	IdC int NOT NULL IDENTITY(1,1) Primary Key ,
---	NumberCardC  varchar(200)  NOT NULL,
---	CustomerIDC bigint  NOT NULL,
---) 
 
---go
---CREATE TABLE Installments(
---	IdI int NOT NULL ,
---	NumberCardI varchar(200)  not NULL  foreign key references CardPayment(NumberCardC),
---	AmountI money not null,
---	Primary Key(IdI,NumberCardI)
---) 
---go
- -- drop table CardPayment
+
+

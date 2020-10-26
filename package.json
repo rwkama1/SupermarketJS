@@ -1,0 +1,23 @@
+{
+  "name": "supermarketjs",
+  "version": "0.0.3",
+  "description": "This package contains a backend of what would be the logic of a supermarking software, the architecture used is made in 3 layers",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Carlos Rodriguez (rwkamandriw@gmail.com)"
+  },
+  "keywords": [
+    "backend",
+    "js",
+    "javascript"  
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rwkama/SupermarketJS.git"
+  }
+
+}

@@ -9,10 +9,6 @@ Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "EntitySupermarket", "Entity
 EndProject
 Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "BussinesRulesSupermarket", "BussinesRulesSupermarket\BussinesRulesSupermarket.njsproj", "{02E22989-ED60-4A08-B176-CD8E03C744DC}"
 EndProject
-Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "Frontend", "Frontend\Frontend.njsproj", "{D441E893-159D-406B-AD37-AD1CA33B5FB7}"
-EndProject
-Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "Express", "Express\Express.njsproj", "{E543AE8B-4E42-4525-9F35-FEC7AEDFA941}"
-EndProject
 Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "PaymentGateway", "PaymentGateway\PaymentGateway.njsproj", "{0613A5C3-0B67-4586-B8E2-074C90DADCF9}"
 EndProject
 Global
@@ -33,14 +29,6 @@ Global
 		{02E22989-ED60-4A08-B176-CD8E03C744DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02E22989-ED60-4A08-B176-CD8E03C744DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02E22989-ED60-4A08-B176-CD8E03C744DC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D441E893-159D-406B-AD37-AD1CA33B5FB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D441E893-159D-406B-AD37-AD1CA33B5FB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D441E893-159D-406B-AD37-AD1CA33B5FB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D441E893-159D-406B-AD37-AD1CA33B5FB7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E543AE8B-4E42-4525-9F35-FEC7AEDFA941}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E543AE8B-4E42-4525-9F35-FEC7AEDFA941}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E543AE8B-4E42-4525-9F35-FEC7AEDFA941}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E543AE8B-4E42-4525-9F35-FEC7AEDFA941}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0613A5C3-0B67-4586-B8E2-074C90DADCF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0613A5C3-0B67-4586-B8E2-074C90DADCF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0613A5C3-0B67-4586-B8E2-074C90DADCF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
