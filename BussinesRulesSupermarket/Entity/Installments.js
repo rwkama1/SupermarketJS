@@ -29,7 +29,7 @@ class Installments {
         this.AmountI = amount;
     }
     getDataType() {
-        return new moduledtins.DTInstallments(this.Idi, this.NumberCI, this.AmountI);
+        return new moduledtins.DTInstallments(0,this.Idi, this.NumberCI, this.AmountI);
     }
 }
 module.exports = { Installments };

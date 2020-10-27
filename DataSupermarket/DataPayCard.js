@@ -12,9 +12,9 @@ async function PaywithCard(dtcard) {
             .input('customer', connection.sql.BigInt, dtcard.dtcustomerid)
             .query(queryinsert)
         for (var dti of dtcard.dtarrayinstallments) {
-            querydts = "insert into Installments values (@idi,@numbercard,@amount)"
+            querydts = "insert into Fees values (@numberfee,@numbercard,@amount)"
             const resultdts = await pool.request()
-                .input('idi', connection.sql.Int, dti.dtidi)
+                .input('numberfee', connection.sql.Int, dti.numberfee)
                 .input('numbercard', connection.sql.VarChar, dtcard.dtnumbercard)
                 .input('amount', connection.sql.Money, dti.dtamount)
                 .query(querydts)

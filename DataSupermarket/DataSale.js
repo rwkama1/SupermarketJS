@@ -3,7 +3,7 @@ const DTSale = require('../EntitySupermarket/DTSale')
 const DTDetailSale = require('../EntitySupermarket/DTDetailSale')
 
 async function registerSale(sale) {
-    queryinsert = "insert into Sale OUTPUT inserted.IdS values (@state,@subtotal,@taxes,@total)"
+    queryinsert = "insert into Sale OUTPUT inserted.IdS values (@state,@subtotal,@taxes,@total,@cardnumber)"
 
     try {
         const pool = await connection.poolPromise
@@ -12,6 +12,7 @@ async function registerSale(sale) {
             .input('subtotal', connection.sql.Money, sale.SubtotalS)
             .input('taxes', connection.sql.Money, sale.TaxesS)
             .input('total', connection.sql.Money, sale.TotalS)
+            .input('cardnumber', connection.sql.VarChar, sale.cardpayment)
             .query(queryinsert)
         var row = result.recordsets[0];
         var ids = row[0].IdS;

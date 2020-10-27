@@ -110,6 +110,8 @@ const msalerecord = require("./SalesRecord")
                 if (accepted) {
                     salecard.collectcard(numbercard, customerid, amountfees);
                     var dtsaled = salecard.getDataType();
+                    var carddatatype = salecard.cardPayment.getDataType();
+                    var rcard = await msalerecord.paycard(carddatatype);
                     var rs = await msalerecord.salerecord(dtsaled);
                     setSale(null);
                 }
@@ -139,5 +141,38 @@ const msalerecord = require("./SalesRecord")
 //var cp = salecard.cardPayment;
 //var dtcardpayment = cp.getDataType();
     //var rcp = await msalerecord.paycard(dtcardpayment);
-module.exports = { startsale, registerproductforsale, closesale, payCash,payCard,cancelSale};
+module.exports = { startsale, registerproductforsale, closesale, payCash, payCard, cancelSale };
+//startsale().then(datast => {
+//    console.log(datast)
+//    registerproductforsale(2, 1).then(datad1 => {
+//    })
+//    registerproductforsale(8, 2).then(datad1 => {
+//        closesale().then(datac => {
+//            //modulecontroller.cancelSale().then(datacan => {
+//            //    console.log(datacan);
+
+//            //})
+//            console.log(datac);
+//            payCard('6011958149773510', 589875549, 3).then(databool => {
+//                if (databool == true) {
+//                    console.log("Card accepted, and the sale was registered successfully");
+
+//                }
+//                if (databool == false) {
+//                    console.log("Rejected card!!!");
+//                }
+//            })
+//            //modulecontroller.payCash(1000).then(datapc => {
+//            //    if (datac.TotalS > 1000) {
+//            //        console.log("The total of the sale is greater than the amount delivered");
+//            //    }
+//            //    else {
+//            //        console.log("Redelivered: " + datapc)
+//            //        printticket(datac).then(datad => {
+//            //        })
+//            //    }
+//            //})
+//        })
+//    })
+//})
 

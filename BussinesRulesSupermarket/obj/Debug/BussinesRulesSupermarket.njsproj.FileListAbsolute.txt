@@ -1,0 +1,3 @@
+C:\Users\Waldemar\Desktop\Node Javascript\SupermarketJS\BussinesRulesSupermarket\obj\Debug\BussinesRulesSupermarket.njsprojAssemblyReference.cache
+C:\Users\Waldemar\Desktop\Node Javascript\SupermarketJS\BussinesRulesSupermarket\obj\Debug\BussinesRulesSupermarket.njsproj.CoreCompileInputs.cache
+C:\Users\Waldemar\Desktop\Node Javascript\SupermarketJS\BussinesRulesSupermarket\bin\Microsoft.NodejsTools.WebRole.dll

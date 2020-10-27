@@ -1,6 +1,13 @@
 class DTInstallments
 {
     _dtidi = 0;
+    _numberfee = 0;
+    get numberfee() {
+        return this._numberfee;
+    }
+    set numberfee(value) {
+        this._numberfee = value;
+    }
     get dtidi() {
         return this._dtidi;
     }
@@ -21,10 +28,11 @@ class DTInstallments
     set dtamount(value) {
         this._dtamount = value;
     }
-    constructor(id, number, amount)
+    constructor(id,numberfee, numbercard, amount)
     {
+        this.numberfee = numberfee;
        this.dtidi = id;
-        this.dtnumbercard = number;
+        this.dtnumbercard = numbercard;
         this.dtamount = amount;
     }
 

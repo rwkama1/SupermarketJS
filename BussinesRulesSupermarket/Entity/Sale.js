@@ -10,7 +10,7 @@ class Sale {
     _TaxesS = 0.00;
     _TotalS = 0.00;
     _ArrayDetailSale = [];
-    _cardPayment = null;
+    _cardPayment = new moduelcardpayment.CardPayment("", 0, 0, 0);;
     get cardPayment() {
         return this._cardPayment;
     }
@@ -120,7 +120,7 @@ class Sale {
         {
             array.push(dl.getDataType());
         }
-        return new modulesale.DTSale(0, this.StateS, this.SubtotalS, this.TaxesS, this.TotalS, array);
+        return new modulesale.DTSale(0, this.StateS, this.SubtotalS, this.TaxesS, this.TotalS, array, this.cardPayment.numbercard);
     }  
     //getDataTypeCard() {
     //    var array = [];

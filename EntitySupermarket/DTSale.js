@@ -5,7 +5,13 @@ class DTSale {
     _TaxesS = 0.00;
     _TotalS = 0.00;
     _ArrayDTDetailSale = [];
- 
+    _cardpayment = "";
+    get cardpayment() {
+        return this._cardpayment;
+    }
+    set cardpayment(value) {
+        this._cardpayment = value;
+    }
     get IdS() {
         return this._IdS;
     }
@@ -48,13 +54,14 @@ class DTSale {
         this._ArrayDTDetailSale = value;
     }
 
-    constructor(ids, states, subtotals, taxess, totals, arraydetailsale) {
+    constructor(ids, states, subtotals, taxess, totals, arraydetailsale,card) {
         this.IdS = ids;
         this.StateS = states;
         this.SubtotalS = subtotals;
         this.TaxesS = taxess;
         this.TotalS = totals;
         this.ArrayDTDetailSale = arraydetailsale;
+        this.cardpayment = card;
        
 
     }
