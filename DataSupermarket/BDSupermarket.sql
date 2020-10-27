@@ -47,7 +47,7 @@ go
 
  --drop table DetailSale
  --drop table Sale
- -- drop table Producto
+ --drop table Producto
 
   --select * from CardPayment
  --select * from Installments
@@ -59,11 +59,11 @@ go
 --) 
 
 --go
---CREATE TABLE Installments(
---	IdI int NOT NULL ,
---	NumberCardI varchar(200)  not NULL  foreign key references CardPayment(NumberCardC),
---	AmountI money not null,
---	Primary Key(IdI,NumberCardI)
---) 
+CREATE TABLE Fees(
+	IdI int NOT NULL ,
+	NumberCardI varchar(200)  not NULL  foreign key references CardPayment(NumberCardC),
+	AmountI money not null,
+	Primary Key(IdI,NumberCardI)
+) 
 --go
  -- drop table CardPayment
