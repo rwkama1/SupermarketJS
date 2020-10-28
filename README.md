@@ -102,7 +102,7 @@ async function printticket(dtsale) {
 
 
 ## Usage 2
-```
+```Javascript
 const modulecontroller = require('supermarketjs/BussinesRulesSupermarket/ControllerCash');
 var express = require('express');
 var router = express.Router();
