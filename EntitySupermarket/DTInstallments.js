@@ -31,7 +31,7 @@ class DTInstallments
     constructor(id,numberfee, numbercard, amount)
     {
         this.numberfee = numberfee;
-       this.dtidi = id;
+        this.dtidi = id;
         this.dtnumbercard = numbercard;
         this.dtamount = amount;
     }

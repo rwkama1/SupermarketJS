@@ -11,7 +11,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>b6a03346-7780-48cf-b23a-cf32861376fe</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>DataPayCard.js</StartupFile>
+    <StartupFile>DataProduct.js</StartupFile>
     <StartWebBrowser>False</StartWebBrowser>
     <SearchPath>
     </SearchPath>

@@ -28,21 +28,22 @@ const msalerecord = require("./SalesRecord")
             return e.message;
         }
     }
-    async function registerproductforsale(id, quantity)
+    async function registerproductforsale(name, quantity)
     {
         try {
         var dtdetailsalerp ;
         var catp;
         var salerp = getSale();
-        if (salerp != null && id >= 1 && quantity >= 1)
+            if (salerp != null && quantity >= 1)
         {
             var estado = salerp.StateS;
             if (estado == "Open")
             {
-                catp = await catalogue.getCatalogueProduct(id);
+                catp = await catalogue.getCatalogueProduct(name);
                 if (catp != null) {
                     dtdetailsalerp = salerp.registerDetailSale(catp, quantity);
                 }
+                
             }
         }
             return dtdetailsalerp;
@@ -89,7 +90,6 @@ const msalerecord = require("./SalesRecord")
                     salecash.collect();
                     var dtsalecash=salecash.getDataType();
                     var rs = await msalerecord.salerecord(dtsalecash);
-                    
                     setSale(null);
                 }
             }
@@ -138,15 +138,12 @@ const msalerecord = require("./SalesRecord")
 }
 
 
-//var cp = salecard.cardPayment;
-//var dtcardpayment = cp.getDataType();
-    //var rcp = await msalerecord.paycard(dtcardpayment);
+
 module.exports = { startsale, registerproductforsale, closesale, payCash, payCard, cancelSale };
 //startsale().then(datast => {
 //    console.log(datast)
-//    registerproductforsale(2, 1).then(datad1 => {
-//    })
-//    registerproductforsale(8, 2).then(datad1 => {
+//    registerproductforsale("Ice Cream", 2).then(datad1 => { });
+//    registerproductforsale("Ketchup", 2).then(datad1 => {
 //        closesale().then(datac => {
 //            //modulecontroller.cancelSale().then(datacan => {
 //            //    console.log(datacan);
@@ -162,16 +159,17 @@ module.exports = { startsale, registerproductforsale, closesale, payCash, payCar
 //                    console.log("Rejected card!!!");
 //                }
 //            })
-//            //modulecontroller.payCash(1000).then(datapc => {
+//            //payCash(1000).then(datapc => {
 //            //    if (datac.TotalS > 1000) {
 //            //        console.log("The total of the sale is greater than the amount delivered");
 //            //    }
 //            //    else {
 //            //        console.log("Redelivered: " + datapc)
-//            //        printticket(datac).then(datad => {
-//            //        })
+//            //        //printticket(datac).then(datad => {
+//            //        //})
 //            //    }
 //            //})
+        
 //        })
 //    })
 //})

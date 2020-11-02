@@ -1,18 +1,21 @@
-const dataproducts = require('../DataSupermarket/DataProduct')
-const moduledtproduct = require('../EntitySupermarket/DTProduct')
-const moduleproduct = require('./Entity/Product')
+const dataproducts = require('../DataSupermarket/DataProduct');
+const moduledtproduct = require('../EntitySupermarket/DTProduct');
+const moduleproduct = require('./Entity/Product');
 
-//async function getCatalogueProducts()
-//{
-//    return await Promise.resolve(dataproducts.getProducts());
-//}
-async function getCatalogueProduct(id) {
+async function getCatalogueProducts()
+{
+    return await Promise.resolve(dataproducts.getProducts());
+}
+async function getCatalogueProductsExpression(exp) {
+    return await Promise.resolve(dataproducts.getProductsExpression(exp));
+}
+async function getCatalogueProduct(name) {
    
-   var dataproduct = await dataproducts.getProduct(id);
+    var dataproduct = await dataproducts.getProduct(name);
    var lproduct = new moduleproduct.Product(dataproduct.IdP, dataproduct.NameP, dataproduct.PriceP);
    return lproduct;
 }
-module.exports = {  getCatalogueProduct };
+module.exports = { getCatalogueProduct, getCatalogueProducts, getCatalogueProductsExpression };
 
 //getCatalogueProduct(7).then(console.log);
 

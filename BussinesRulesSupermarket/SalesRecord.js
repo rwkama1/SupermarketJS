@@ -1,8 +1,8 @@
-const mdatasale = require('../DataSupermarket/DataSale');
+const registerSale = require('../DataSupermarket/DataSale').registerSale;
 const mdatacard = require('../DataSupermarket/DataPayCard');
 async function salerecord(sale) {
 
-    var rs = await mdatasale.registerSale(sale);
+    var rs = await registerSale(sale);
     return rs;
 }
 async function paycard(dtcardp) {

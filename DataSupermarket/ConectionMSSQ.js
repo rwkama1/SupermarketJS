@@ -1,24 +1,14 @@
-const sql = require('mssql');
-const config = {
-    user: 'rwkama63_SQLLogin_1',
-    password: 'ksjp44u79n',
-    database: 'BDSupermarketMSSQ',
-    server: 'BDSupermarketMSSQ.mssql.somee.com',
-    port: 1433,
-    options: {
-        trustedConnection: false,
-        enableArithAbort: true,
-        encrypt: false
-    }
+const MongoClient = require('mongodb').MongoClient;
+const uri = "mongodb+srv://rwkamandriw:IF3JJQIm00NdGzcq@carlosrodriguezcluster.eaywr.mongodb.net/BDSupermarket?retryWrites=true&w=majority";
 
-}
-
-const poolPromise = new sql.ConnectionPool(config)
+const clientcon = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true })
     .connect()
-    .then(pool => {
-        console.log('Connected to MSSQL')
-        return pool
+    .then(mongoclient => {
+        console.log('Connected to MongoDB')
+        return mongoclient
     })
     .catch(err => console.log('Database Connection Failed! Bad Config: ', err))
 
-module.exports = { sql, poolPromise };
+module.exports = { clientcon };
+
+

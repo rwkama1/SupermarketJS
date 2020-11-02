@@ -2,14 +2,14 @@
   "name": "data-supermarket",
   "version": "0.0.0",
   "description": "DataSupermarket",
-  "main": "DataPayCard.js",
+  "main": "DataSale.js",
   "scripts": {
-    "start": "node DataPayCard"
+    "start": "node DataSale"
   },
   "author": {
     "name": "Carlos Rodriguez"
   },
   "dependencies": {
-    "mssql": "^6.2.3"
+    "mongodb": "^3.6.2"
   }
 }

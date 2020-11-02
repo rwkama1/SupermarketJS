@@ -1,39 +1,25 @@
-const connection = require('./ConectionMSSQ')
-const DTSale = require('../EntitySupermarket/DTSale')
-const DTDetailSale = require('../EntitySupermarket/DTDetailSale')
+const dbconection = require('./ConectionMSSQ').clientcon;
+const DTSale = require('../EntitySupermarket/DTSale');
+const DTDetailSale = require('../EntitySupermarket/DTDetailSale');
 
 async function registerSale(sale) {
-    queryinsert = "insert into Sale OUTPUT inserted.IdS values (@state,@subtotal,@taxes,@total,@cardnumber)"
 
+    const conection = await dbconection
     try {
-        const pool = await connection.poolPromise
-        const result = await pool.request()
-            .input('state', connection.sql.VarChar, sale.StateS)
-            .input('subtotal', connection.sql.Money, sale.SubtotalS)
-            .input('taxes', connection.sql.Money, sale.TaxesS)
-            .input('total', connection.sql.Money, sale.TotalS)
-            .input('cardnumber', connection.sql.VarChar, sale.cardpayment)
-            .query(queryinsert)
-        var row = result.recordsets[0];
-        var ids = row[0].IdS;
+        const colsale = await conection.db("BDSupermarket").collection("Sale");
+        const result = await colsale.insertOne(sale);
+        
         for (var dtsale of sale.ArrayDTDetailSale)
         {
-            querydts = "insert into DetailSale values (@quantity,@amount,@productname,@saleid)"
-            const resultdts = await pool.request()
-                .input('quantity', connection.sql.Money, dtsale.QuantityDS)
-                .input('amount', connection.sql.Money, dtsale.AmountDS)
-                .input('productname', connection.sql.VarChar, dtsale.ProductDS)
-                .input('saleid', connection.sql.Int, ids)
-                .query(querydts)
+            let query = { AmountDS: dtsale.AmountDS, QuantityDS: dtsale.QuantityDS, ProductDS: dtsale.ProductDS, Sale: result.insertedId };
+            const coldetailsale = await conection.db("BDSupermarket").collection("DetailSale").insertOne(query);
         }
-        if (result.rowsAffected == 0) {
-            return "The sale could not be inserted, the data may have been entered incorrectly";
-        }
-        return "The sale was inserted successfully";
+        conection.close();
+        return "Added Sale " + result.insertedId;
 
-    } catch (error) {
-
-        return error.message;
+    }
+    catch (e) {
+        return e.message
     }
 }
 module.exports = { registerSale };

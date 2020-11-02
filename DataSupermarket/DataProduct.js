@@ -1,46 +1,78 @@
-const connection = require('./ConectionMSSQ')
-const DTProduct = require('../EntitySupermarket/DTProduct')
+const dbconection = require('./ConectionMSSQ').clientcon;
+const DTProduct = require('../EntitySupermarket/DTProduct').DTProducto;
     
 async function getProducts() {
-    querylist = "select * from Producto"
+    const conection = await dbconection
     try {
-        const pool = await connection.poolPromise
-        const result = await pool.request()
-            .query(querylist)
-        let arrayp = [];
-        for (var x of result.recordset) {
-            product = new DTProduct.DTProducto(x.IdP,x.NameP,x.PriceP)
-            arrayp.push(product);
+
+        //let query = { Namep: 'Ketchup' }
+
+        const collection = conection.db("BDSupermarket").collection("Product");
+        const result = await collection.find({}).toArray();
+        let array = [];
+        for (var p of result) {
+            var obj = new DTProduct(p._id, p.Namep, p.PriceP)
+            array.push(obj);
         }
-        return arrayp;
+        return array;
+        conection.close();
 
-    } catch (error) {
 
-        return error.message;
     }
+    catch (e) {
+        return e.message
+    }
+
 }
-async function getProduct(id) {
-    querysearch = "select * from producto where IdP=@idp"
+async function getProductsExpression(expression) {
+    const conection = await dbconection
     try {
-        const pool = await connection.poolPromise
-        const result = await pool.request()
-            .input('idp', connection.sql.Int, id)
-            .query(querysearch)
-        product = new DTProduct.DTProducto(result.recordset[0].IdP, result.recordset[0].NameP, result.recordset[0].PriceP);
-        return product;
 
-    } catch (error) {
+        //let query = { Namep: /^expression/ };
+        let query = {Namep: { $regex: expression } }
+       const collection = conection.db("BDSupermarket").collection("Product");
+       const result = await collection.find(query).toArray();
+       let array =[];
+       for (var p of result) {
+            var obj = new DTProduct(p._id, p.Namep, p.PriceP)
+            array.push(obj);
+        }
+        return array;
+        conection.close();
 
-        return error.message;
+
+    }
+    catch (e) {
+        return e.message
+    }
+
+}
+async function getProduct(name) {
+    //const conection =await  dbconection.connect();
+    const conection = await dbconection
+    try {
+
+        let query = { Namep: name }
+        const collection = conection.db("BDSupermarket").collection("Product");
+        const p = await collection.findOne(query);
+        var obj = new DTProduct(p._id, p.Namep, p.PriceP);
+        return obj;
+        conection.close();
+
+    }
+    catch (e) {
+        return e.message
     }
 }
 
 //getProducts().then(data => {
 //    console.log(data)
 //})
-module.exports = { getProducts, getProduct };
-
-//getProduct(5).then(data => {
+//getProductsExpression("").then(data => {
 //    console.log(data)
 //})
-//}
+module.exports = { getProduct, getProducts, getProductsExpression };
+
+//getProduct("Ketchup").then(data => {
+//    console.log(data)
+//})
