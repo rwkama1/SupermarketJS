@@ -1,0 +1,37 @@
+{
+  "name": "supermarketjs",
+  "version": "1.0.4",
+
+  "description": "This package contains a backend of what would be the logic of a supermarking software, the architecture used is made in 3 layers",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Carlos Rodriguez (rwkamandriw@gmail.com)"
+  },
+  "keywords": [
+    "backend",
+    "js",
+    "product",
+    "supermarket",
+    "pay",
+    "total",
+    "card",
+    "cash",
+    "sale",
+    "catalogue",
+    "taxes",
+    "fees",
+    "javascript"  
+  ],
+ "dependencies": {
+  "mssql": "8.1.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rwkama/SupermarketJS.git"
+  }
+
+}
