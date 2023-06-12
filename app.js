@@ -337,41 +337,47 @@ const { DataRatingsProduct } = require("./data/DataRatingProduct");
         // }
         // getProductsOffer().then()
 
-
+   async function getProductById() {
+               
+                let getProductById = 
+                await DataProduct.getProductById(62);
+                console.log(getProductById);
+        }
+        getProductById().then()
 
 //#endregion PRODUCT
 
 //#region  PRODUCT RATINGS
 
 
-async function ratingProduct() {
+// async function ratingProduct() {
     
-           let rating=6;
-           let idproduct=62;
-           let idcustomer=5;
+//            let rating=6;
+//            let idproduct=62;
+//            let idcustomer=5;
 
 
-            let ratingProduct = await DataRatingsProduct.ratingProduct(idproduct,idcustomer,rating);
-            if (ratingProduct===-1) {
-                throw new
-                Error("The idproduct does not  exists");   
-            }
-            if (ratingProduct===-3) {
-                throw new
-                Error("The idcustomer does not  exists");   
-            }
-            if (ratingProduct===-2) {
-                throw new
-                Error("The rating must be 1 to 5");   
-            }
-            if (ratingProduct===2) {
-                console.log("Product updated successfully");  
-            }
-            if (ratingProduct===1) {
-                console.log("Product insert successfully");
-            }
-    }
-    ratingProduct().then()
+//             let ratingProduct = await DataRatingsProduct.ratingProduct(idproduct,idcustomer,rating);
+//             if (ratingProduct===-1) {
+//                 throw new
+//                 Error("The idproduct does not  exists");   
+//             }
+//             if (ratingProduct===-3) {
+//                 throw new
+//                 Error("The idcustomer does not  exists");   
+//             }
+//             if (ratingProduct===-2) {
+//                 throw new
+//                 Error("The rating must be 1 to 5");   
+//             }
+//             if (ratingProduct===2) {
+//                 console.log("Product updated successfully");  
+//             }
+//             if (ratingProduct===1) {
+//                 console.log("Product insert successfully");
+//             }
+//     }
+//     ratingProduct().then()
 
 
 

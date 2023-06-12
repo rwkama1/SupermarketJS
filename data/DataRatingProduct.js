@@ -91,7 +91,10 @@ class DataRatingsProduct{
         
     }
 
-  
+	//GET
+
+	
+   
 
 }
 module.exports = { DataRatingsProduct };

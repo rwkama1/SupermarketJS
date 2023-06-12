@@ -263,6 +263,57 @@ class DataProduct {
 
     //GET
 
+    static  getProductById=async(idproduct)=>
+    {
+       let resultquery;
+        let queryinsert = `
+        
+        DECLARE @ProductId INT;
+        SET @ProductId =${idproduct};
+        
+        IF  EXISTS (SELECT IdProduct FROM Product WHERE 
+            IdProduct = @ProductId and active=1)
+                    
+        BEGIN
+
+            SELECT P.IdProduct, P.NameProduct, P.DescriptionProduct,
+            CASE WHEN O.IdOffer IS NULL THEN P.PriceProduct
+                WHEN GETDATE() BETWEEN O.Startt_date AND O.End_date
+                THEN O.Offer_price
+                ELSE P.PriceProduct
+            END AS PriceProduct,
+            P.UrlImg, P.StockProduct,
+            CASE WHEN O.IdOffer IS NULL THEN CAST(0 AS bit)
+                WHEN GETDATE() BETWEEN O.Startt_date AND O.End_date 
+                THEN CAST(1 AS bit)
+                ELSE CAST(0 AS bit)
+            END AS InOffer,
+            P.PriceProduct AS RegularPrice
+            FROM Product P
+            LEFT JOIN Offers O ON P.IdProduct = O.IdProduct
+            WHERE P.idproduct = @ProductId
+
+        END 
+        ELSE 
+        BEGIN 
+            SELECT -1 AS nonexistingidproduct;
+        END
+
+        `
+        let pool = await Conection.conection();
+        const result = await pool.request()
+         .query(queryinsert)
+         resultquery = result.recordset[0].nonexistingidproduct;
+         if(resultquery===undefined)
+         {
+            let DTOproduct = new DTOProduct();
+            this.getInformation(DTOproduct, result.recordset[0]);
+            resultquery=DTOproduct;
+         }
+          return resultquery;
+        
+    }
+
     static  getProductsOfferByCategory=async(idcategory)=>
     {
         let arrayn=[];
