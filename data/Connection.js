@@ -1,4 +1,5 @@
 const sql  = require("mssql");
+
 class Conection
 {
      static conection=async () => {
@@ -20,4 +21,5 @@ class Conection
   
        }
 }
+
 module.exports = { Conection };

@@ -10,6 +10,7 @@ const { DTOProduct } = require("./entity/DTOProduct");
 const { DTOOffer } = require("./entity/DTOOffer");
 const { DataOffer } = require("./data/DataOffer");
 const { DataRatingsProduct } = require("./data/DataRatingProduct");
+const { DataLoginCustomer } = require("./data/DataLoginCustomer");
 
 //#region CUSTOMERS
 
@@ -118,9 +119,54 @@ const { DataRatingsProduct } = require("./data/DataRatingProduct");
    
     //     deleteCustomer().then()
 
+    //    async function getCustomerById() {
+               
+    //             let getCustomerById = 
+    //             await DataCustomer.getCustomerById(4);
+    //             console.log(getCustomerById);
+    //     }
+    //     getCustomerById().then()
 
  
 //#endregion CUSTOMERS
+
+//#region LOGIN CUSTOMER
+
+// async function loginCustomer() {
+       
+
+//             let loginCustomer = await DataLoginCustomer.
+//             loginCustomer("Username2","password3");
+//             if (loginCustomer===-1) {
+//                 throw new
+//                  Error("The Password or Username is incorrect");
+//             }
+           
+//             console.log(loginCustomer);
+        
+//     }
+//     loginCustomer().then()
+
+    async function logout() {
+       
+
+            let logout = await DataLoginCustomer.
+            logout(4);
+            if (logout===-1) {
+                throw new
+                 Error("The User is not logged in");
+            }
+           
+            console.log("The User has logged out");
+        
+    }
+    logout().then()
+
+
+
+
+//#endregion LOGIN CUSTOMER
+
 
 //#region SUPPLIERS
 
@@ -337,13 +383,23 @@ const { DataRatingsProduct } = require("./data/DataRatingProduct");
         // }
         // getProductsOffer().then()
 
-   async function getProductById() {
+
+        //  async function getSearchProducts() {
                
-                let getProductById = 
-                await DataProduct.getProductById(62);
-                console.log(getProductById);
-        }
-        getProductById().then()
+        //         let getSearchProducts = 
+        //         await DataProduct.getSearchProducts();
+        //         console.log(getSearchProducts);
+        // }
+        // getSearchProducts().then()
+
+
+//    async function getProductById() {
+               
+//                 let getProductById = 
+//                 await DataProduct.getProductById(62);
+//                 console.log(getProductById);
+//         }
+//         getProductById().then()
 
 //#endregion PRODUCT
 
@@ -352,9 +408,9 @@ const { DataRatingsProduct } = require("./data/DataRatingProduct");
 
 // async function ratingProduct() {
     
-//            let rating=6;
+//            let rating=3;
 //            let idproduct=62;
-//            let idcustomer=5;
+//            let idcustomer=9;
 
 
 //             let ratingProduct = await DataRatingsProduct.ratingProduct(idproduct,idcustomer,rating);

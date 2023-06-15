@@ -2,12 +2,10 @@ const { Date } = require("mssql");
 const { DTOProduct } = require("../entity/DTOProduct");
 const { Conection } = require("./Connection");
 
-
-
 class DataProduct {
  
     // SET
-    
+     
     static  registerProduct=async(dtoproduct)=>
     {
         let {NameProduct,DescriptionProduct,UrlImg,PriceProduct,Manufacturer,
@@ -178,7 +176,6 @@ class DataProduct {
           return resultquery;
         
     }
-    
     static  substractStock=async(IdProduct,Quantity)=>
     {
      
@@ -269,35 +266,40 @@ class DataProduct {
         let queryinsert = `
         
         DECLARE @ProductId INT;
-        SET @ProductId =${idproduct};
+        SET @ProductId = ${idproduct};
         
-        IF  EXISTS (SELECT IdProduct FROM Product WHERE 
-            IdProduct = @ProductId and active=1)
-                    
+        IF EXISTS (SELECT IdProduct FROM Product WHERE IdProduct = @ProductId AND active = 1)
         BEGIN
-
             SELECT P.IdProduct, P.NameProduct, P.DescriptionProduct,
-            CASE WHEN O.IdOffer IS NULL THEN P.PriceProduct
-                WHEN GETDATE() BETWEEN O.Startt_date AND O.End_date
-                THEN O.Offer_price
+            CASE
+                WHEN O.IdOffer IS NULL THEN P.PriceProduct
+                WHEN GETDATE() BETWEEN O.Startt_date AND O.End_date THEN O.Offer_price
                 ELSE P.PriceProduct
             END AS PriceProduct,
             P.UrlImg, P.StockProduct,
-            CASE WHEN O.IdOffer IS NULL THEN CAST(0 AS bit)
-                WHEN GETDATE() BETWEEN O.Startt_date AND O.End_date 
-                THEN CAST(1 AS bit)
+            CASE
+                WHEN O.IdOffer IS NULL THEN CAST(0 AS bit)
+                WHEN GETDATE() BETWEEN O.Startt_date AND O.End_date THEN CAST(1 AS bit)
                 ELSE CAST(0 AS bit)
             END AS InOffer,
-            P.PriceProduct AS RegularPrice
+            P.PriceProduct AS RegularPrice,
+        ROUND(ISNULL(PR.Rating, 0) * 4 / 5 + 1, 2) AS Rating
+        
             FROM Product P
             LEFT JOIN Offers O ON P.IdProduct = O.IdProduct
-            WHERE P.idproduct = @ProductId
-
-        END 
-        ELSE 
-        BEGIN 
+            LEFT JOIN (
+                SELECT IdProduct, AVG((Rating - 1) * 4 / 4 + 1) AS Rating
+                FROM ProductRatings
+                WHERE IdProduct = @ProductId
+                GROUP BY IdProduct
+            )  PR ON P.IdProduct = PR.IdProduct
+            WHERE P.IdProduct = @ProductId AND P.active = 1
+        END
+        ELSE
+        BEGIN
             SELECT -1 AS nonexistingidproduct;
         END
+        
 
         `
         let pool = await Conection.conection();
@@ -313,7 +315,6 @@ class DataProduct {
           return resultquery;
         
     }
-
     static  getProductsOfferByCategory=async(idcategory)=>
     {
         let arrayn=[];
@@ -351,7 +352,6 @@ class DataProduct {
           return arrayn;
         
     }
-
     static  getProductsOffer=async()=>
     {
         let arrayn=[];
@@ -375,6 +375,43 @@ class DataProduct {
         P.PriceProduct AS RegularPrice
         FROM Product P
         LEFT JOIN Offers O ON P.IdProduct = O.IdProduct
+        ORDER BY ISNULL(O.Offer_price, P.PriceProduct) ASC;
+
+        `
+        let pool = await Conection.conection();
+        const result = await pool.request()
+         .query(queryinsert)
+         for (let re of result.recordset) {
+            let dtoproduct = new DTOProduct();   
+            this.getInformation(dtoproduct,re);
+            arrayn.push(dtoproduct);
+         }
+          return arrayn;
+        
+    }
+    static  getSearchProducts=async(nameproduct="",descriptionproduct="",
+    manufacturerproduct="",countryoriginproduct="",categoryname="",
+    suppliername="")=>
+    {
+        let arrayn=[];
+        let queryinsert = `
+  
+            SELECT 
+            P.IdProduct, 
+            P.NameProduct,
+            P.DescriptionProduct,
+            P.UrlImg
+            FROM Product P
+            INNER JOIN Category C ON P.IdCategory = C.IdCategory
+            INNER JOIN Suppliers S ON P.SupplierId = S.SupplierId
+            WHERE P.Active = 1
+            AND C.NameCategory LIKE '%${categoryname}%'
+            AND S.SupplierName LIKE '%${suppliername}%'
+            AND P.NameProduct LIKE '%${nameproduct}%'
+            AND P.DescriptionProduct LIKE '%${descriptionproduct}%'
+            AND P.Manufacturer LIKE '%${manufacturerproduct}%'
+            AND P.CountryOfOrigin LIKE '%${countryoriginproduct}%'
+            
 
         `
         let pool = await Conection.conection();
@@ -389,9 +426,8 @@ class DataProduct {
         
     }
 
-
-
     //GET INFORMATION
+    
     static getInformation(dtoproduct,result)
     {
         dtoproduct.IdProduct = result.IdProduct;
@@ -401,14 +437,16 @@ class DataProduct {
         dtoproduct.UrlImg = result.UrlImg;
         dtoproduct.InOffer = result.InOffer;
         dtoproduct.RegularPrice = result.RegularPrice;
-       
+        dtoproduct.Rating = result.Rating;
      
     }
 
 }
 module.exports = { DataProduct };
 
-//static async  getProducts() {
+
+
+    //static async  getProducts() {
     //     const conection = await dbconection
     //     try {
     

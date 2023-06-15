@@ -1,6 +1,6 @@
 const { Conection } = require("./Connection");
 class DataSuppliers {
-    //#region CRUD
+    //SET
 
     static  registerSuppliers=async(dtosuppliers)=>
     {

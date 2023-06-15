@@ -1,6 +1,7 @@
 const { Conection } = require("./Connection");
 class DataCategory {
-    //#region CRUD
+    
+    //SET
 
     static  registerCategory=async(namecategory,descriptioncategory)=>
     {
@@ -70,7 +71,6 @@ class DataCategory {
           return resultquery;
         
     }
-  
 
 }
 module.exports = { DataCategory };

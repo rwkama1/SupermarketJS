@@ -91,7 +91,7 @@ class DataRatingsProduct{
         
     }
 
-	//GET
+	
 
 	
    

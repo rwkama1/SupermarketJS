@@ -1,6 +1,10 @@
+const {  DTOCustomer } = require("../entity/DTOCustomer");
 const { Conection } = require("./Connection");
+
 class DataCustomer {
-    //#region CRUD
+
+    //SET
+
     static  registerCustomer=async(dtocustomer)=>
     {
         let {namecustomer,userrname,password,streetname,streetnumber,
@@ -239,6 +243,78 @@ class DataCustomer {
           return resultquery;
         
     }
+    
+    //GET
+    
+    static  getCustomerById=async(idcustomer)=>
+    {
+        let resultquery=0;
+        let queryinsert = `
+        
+                        DECLARE @idcustomer int = ${idcustomer};
+
+                        IF  EXISTS (SELECT IdCustomer FROM Customer WHERE 
+                            IdCustomer = @idcustomer and active=1)
+                       
+                        BEGIN
+                           
+                            SELECT 
+                            c.idcustomer,
+                            c.NameCustomer,
+                            c.Userrname,
+                            c.Street_name,
+                            c.Street_number,
+                            c.Unit_apartment,
+                            c.City,
+                            c.Statee,
+                            c.Phone,
+                            c.Email,
+                            c.RegistrationDate
+                            from 
+                            Customer as c
+                            WHERE 
+                            c.Active = 1
+                            and c.idcustomer = @idcustomer
+                        END
+                        ELSE
+                        BEGIN
+                             SELECT -1 AS nonexistingidcustomer;
+                         END
+
+        `
+        let pool = await Conection.conection();
+        const result = await pool.request()
+         .query(queryinsert)
+
+          resultquery = result.recordset[0].nonexistingidcustomer;
+            if(resultquery===undefined)
+            {
+                let dtocustomer = new DTOCustomer();
+                this.getInformation(dtocustomer, result.recordset[0]);
+                resultquery=dtocustomer;
+            }
+            pool.close();
+          return resultquery;
+        
+    }
+
+    //GET INFORMATION
+    
+    static getInformation(dtocustomer,result)
+    {
+        dtocustomer.IdCustomer = result.idcustomer;
+        dtocustomer.NameCustomer = result.NameCustomer;
+        dtocustomer.UserrName = result.Userrname;
+        dtocustomer.Street_name = result.Street_name;
+        dtocustomer.Street_number = result.Street_number;
+        dtocustomer.Unit_apartment = result.Unit_apartment;
+        dtocustomer.City = result.City;
+        dtocustomer.Statee = result.Statee;
+        dtocustomer.Phone = result.Phone;
+        dtocustomer.Email = result.Email;
+        dtocustomer.RegistrationDate = result.RegistrationDate;
+    }
 
 }
+
 module.exports = { DataCustomer };

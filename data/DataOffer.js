@@ -1,6 +1,8 @@
 const { Conection } = require("./Connection");
 class DataOffer {
+
     //SET
+
     static  registerOffer=async(dtooffer)=>
     {
         let {DescriptionOffer,DiscountPercentage,Startt_date,End_date,IdProduct
@@ -87,7 +89,7 @@ class DataOffer {
             pool.close();
           return resultquery;
         
-    }
+    } 
     static  updateOffer=async(dtooffer)=>
     {
         let {DescriptionOffer,DiscountPercentage,Startt_date,End_date,IdProduct
@@ -177,5 +179,7 @@ class DataOffer {
               return resultquery;
         
     }
+
+    
 }
 module.exports = { DataOffer };
