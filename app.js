@@ -11,7 +11,57 @@ const { DTOOffer } = require("./entity/DTOOffer");
 const { DataOffer } = require("./data/DataOffer");
 const { DataRatingsProduct } = require("./data/DataRatingProduct");
 const { DataLoginCustomer } = require("./data/DataLoginCustomer");
+const { DataAdministrator } = require("./data/DataAdministrator");
+const { DTOAdministrator } = require("./entity/DTOAdministrator");
 
+
+//#region ADMIN
+
+//  async function registerAdmin() {
+//         for (let index = 1; index < 100; index++) {
+
+//             let dtoadmin = new DTOAdministrator();
+         
+//             dtoadmin.NameAdmin = "User" + index.toString();
+//             dtoadmin.UserrName = "Username" + index.toString();
+//             dtoadmin.Passwordd = "password" + index.toString();
+     
+
+//             let registercustomer = await DataAdministrator.registerAdmin(dtoadmin);
+//             if (registercustomer===-1) {
+//                 throw new
+//                  Error("The username already exists");
+//             }
+//             if (registercustomer===-2) {
+//                 throw new 
+//                 Error("Username must have more than 8 characters");
+//             }
+//             if (registercustomer===-3) {
+//                 throw new 
+//                 Error("Passwordd must have more than 8 characters");
+//             }
+//             console.log("The admin was registered successfully");
+//         }
+//     }
+//     registerAdmin().then()
+
+//  async function updateAdmin() {
+//             let dtoadmin = new DTOAdministrator();
+//             dtoadmin.IdAdministrator =  3;
+//             dtoadmin.NameAdmin = "User1";
+            
+//             let updateAdmin = await 
+//             DataAdministrator.updateAdmin(dtoadmin);
+//             if (updateAdmin===-1) {
+//                 throw new
+//                  Error("The idadmin does not  exists");
+//             }
+           
+//             console.log("Admin update successfully");
+//     }
+//     updateAdmin().then()
+
+//#region ADMIN
 //#region CUSTOMERS
 
     // async function registerCustomer() {
@@ -136,7 +186,7 @@ const { DataLoginCustomer } = require("./data/DataLoginCustomer");
        
 
 //             let loginCustomer = await DataLoginCustomer.
-//             loginCustomer("Username2","password3");
+//             loginCustomer("Username3","password3");
 //             if (loginCustomer===-1) {
 //                 throw new
 //                  Error("The Password or Username is incorrect");
@@ -147,20 +197,31 @@ const { DataLoginCustomer } = require("./data/DataLoginCustomer");
 //     }
 //     loginCustomer().then()
 
-    async function logout() {
+    // async function existLoginUser() {
+       
+    //     let existLoginCustomer = 
+    //     await DataLoginCustomer.existLoginCustomer(4,"Username2")
+    //     console.log(existLoginCustomer);
+        
+    // }
+    // existLoginUser().then()
+
+
+
+    // async function logout() {
        
 
-            let logout = await DataLoginCustomer.
-            logout(4);
-            if (logout===-1) {
-                throw new
-                 Error("The User is not logged in");
-            }
+    //         let logout = await DataLoginCustomer.
+    //         logout(4);
+    //         if (logout===-1) {
+    //             throw new
+    //              Error("The User is not logged in");
+    //         }
            
-            console.log("The User has logged out");
+    //         console.log("The User has logged out");
         
-    }
-    logout().then()
+    // }
+    // logout().then()
 
 
 

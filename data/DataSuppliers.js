@@ -1,5 +1,6 @@
 const { Conection } = require("./Connection");
 class DataSuppliers {
+    
     //SET
 
     static  registerSuppliers=async(dtosuppliers)=>

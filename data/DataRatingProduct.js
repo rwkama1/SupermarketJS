@@ -91,10 +91,5 @@ class DataRatingsProduct{
         
     }
 
-	
-
-	
-   
-
 }
 module.exports = { DataRatingsProduct };

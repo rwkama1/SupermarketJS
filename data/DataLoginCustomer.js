@@ -1,12 +1,9 @@
 const { Conection } = require("./Connection");
-
-const { VarChar,Int ,Date} = require("mssql");
-
+const { VarChar,Int } = require("mssql");
 const { DataCustomer } = require("./DataCustomer");
 const { DTOCustomer } = require("../entity/DTOCustomer");
 
 class DataLoginCustomer {
-
 
     static  loginCustomer=async(username,password)=>
     {
@@ -68,6 +65,32 @@ class DataLoginCustomer {
          return resultquery;
         
     }
+    static existLoginCustomer=async(idcustomer,username)=>
+{
+   
+     let querysearch=
+     `
+
+     SELECT CASE WHEN COUNT(*) > 0 
+     THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT) END AS Exist
+     FROM LoginCustomer
+     WHERE IdCustomer = @IdCustomer and IdCustomer IN (
+        SELECT IdCustomer FROM Customer WHERE UserrName
+         = @UserrName
+     )
+
+     `;
+        let pool = await Conection.conection();   
+       const result = await pool.request()
+       .input('IdCustomer', Int, idcustomer)
+       .input('UserrName', VarChar, username)
+       .query(querysearch)
+        let exist = result.recordset[0].Exist;
+       pool.close();
+       return exist;
+    
+
+     }
     static  logout=async(idcustomer)=>
     {
         let resultquery=0;
@@ -100,4 +123,5 @@ class DataLoginCustomer {
         
     }
 }
+
 module.exports = { DataLoginCustomer };
