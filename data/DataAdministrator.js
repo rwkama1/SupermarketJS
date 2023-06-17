@@ -81,7 +81,7 @@ class DataAdministrator {
           return resultquery;
         
     }
-    static  updateAdmin=async(dtoadmin)=>
+    static  updateNameAdmin=async(dtoadmin)=>
     {
         let {IdAdministrator,NameAdmin
         }=dtoadmin;
@@ -102,7 +102,6 @@ class DataAdministrator {
 
                                 UPDATE Administrator
                                 SET NameAdmin = @NameAdmin
-                            
                                 WHERE IdAdministrator = @IdAdministrator;
 
                                 select 1 updatesuccess
@@ -129,18 +128,18 @@ class DataAdministrator {
           return resultquery;
         
     }
-    static  updatePassword=async(idcustomer,newpassword,currentpassword)=>
+    static  updatePassword=async(idadmin,newpassword,currentpassword)=>
     {
       
         let resultquery=0;
         let queryinsert = `
         
-        DECLARE @idcustomer int = ${idcustomer};
+        DECLARE @IdAdministrator int = ${idadmin};
         DECLARE @newpassword varchar(100) = '${newpassword}';
         DECLARE @currentpassword varchar(100)= '${currentpassword}';
 
-        IF NOT EXISTS (SELECT IdCustomer FROM Customer WHERE 
-            IdCustomer = @idcustomer AND 
+        IF NOT EXISTS (SELECT IdAdministrator FROM Administrator WHERE 
+            IdAdministrator = @IdAdministrator AND 
             Passwordd = HASHBYTES('SHA2_256', @currentpassword) 
             AND Active = 1)
         BEGIN
@@ -155,9 +154,9 @@ class DataAdministrator {
             ELSE
             BEGIN
 
-                 Update Customer Set 
+                 Update Administrator Set 
                  Passwordd = HASHBYTES('SHA2_256', @newpassword) 
-                 where IdCustomer=@idcustomer
+                 where IdAdministrator=@IdAdministrator
 
                 select 1 as updatesuccess
               
@@ -181,40 +180,38 @@ class DataAdministrator {
           return resultquery;
         
     }
-    static  deleteCustomer=async(idcustomer)=>
+    static  deleteAdmin=async(idadmin)=>
     {
         let resultquery=0;
         let queryinsert = `
-        
-                        DECLARE @idcustomer int = '${idcustomer}';
-                       
 
-                        IF  EXISTS (SELECT IdCustomer FROM Customer WHERE 
-                            IdCustomer = @idcustomer and active=1)
+                    DECLARE @IdAdministrator int = '${idadmin}';
+
+                        IF  EXISTS (SELECT IdAdministrator
+                             FROM Administrator WHERE 
+                            IdAdministrator = @IdAdministrator 
+                            and active=1)
                        
                         BEGIN
-                           
-
-                                UPDATE Customer
+                        
+                                UPDATE Administrator
                                 SET active = 0
-                                WHERE IdCustomer = @idcustomer
+                                WHERE IdAdministrator = @IdAdministrator
 
-                                  select 1 deletesuccess
-
-                            
+                                select 1 deletesuccess
+ 
                         END
                         ELSE
                         BEGIN
-                             SELECT -1 AS nonexistingidcustomer;
-                         END
+                             SELECT -1 AS nonexistingidadmin;
+                        END
 
-      
         `
         let pool = await Conection.conection();
         const result = await pool.request()
          .query(queryinsert)
 
-          resultquery = result.recordset[0].nonexistingidcustomer;
+          resultquery = result.recordset[0].nonexistingidadmin;
             if(resultquery===undefined)
             {
              resultquery = result.recordset[0].deletesuccess;
@@ -223,71 +220,15 @@ class DataAdministrator {
           return resultquery;
         
     }
-    
-    //GET
-    
-    static  getCustomerById=async(idcustomer)=>
-    {
-        let resultquery=0;
-        let queryinsert = `
-        
-                        DECLARE @idcustomer int = ${idcustomer};
-
-                        IF  EXISTS (SELECT IdCustomer FROM Customer WHERE 
-                            IdCustomer = @idcustomer and active=1)
-                       
-                        BEGIN
-                           
-                            SELECT 
-                            c.idcustomer,
-                            c.NameCustomer,
-                            c.Userrname,
-                            c.Street_name,
-                            c.Street_number,
-                            c.Unit_apartment,
-                            c.City,
-                            c.Statee,
-                            c.Phone,
-                            c.Email,
-                            c.RegistrationDate
-                            from 
-                            Customer as c
-                            WHERE 
-                            c.Active = 1
-                            and c.idcustomer = @idcustomer
-                        END
-                        ELSE
-                        BEGIN
-                             SELECT -1 AS nonexistingidcustomer;
-                         END
-
-        `
-        let pool = await Conection.conection();
-        const result = await pool.request()
-         .query(queryinsert)
-
-          resultquery = result.recordset[0].nonexistingidcustomer;
-            if(resultquery===undefined)
-            {
-                let dtocustomer = new DTOCustomer();
-                this.getInformation(dtocustomer, result.recordset[0]);
-                resultquery=dtocustomer;
-            }
-            pool.close();
-          return resultquery;
-        
-    }
 
     //GET INFORMATION
-    
+        
     static getInformation(dtoadmin,result)
     {
         dtoadmin.IdAdministrator = result.IdAdministrator;
         dtoadmin.NameAdmin = result.NameAdmin;
-        dtoadmin.UserrName = result.Userrname;
-        dtoadmin.Passwordd = result.Passwordd;
-        dtoadmin.Active = result.Active;
-       
+        dtoadmin.UserrName = result.UserrName;
+        
     }
 
 }

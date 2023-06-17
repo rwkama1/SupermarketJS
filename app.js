@@ -13,6 +13,9 @@ const { DataRatingsProduct } = require("./data/DataRatingProduct");
 const { DataLoginCustomer } = require("./data/DataLoginCustomer");
 const { DataAdministrator } = require("./data/DataAdministrator");
 const { DTOAdministrator } = require("./entity/DTOAdministrator");
+const { DataLoginAdmin } = require("./data/DataLoginAdmin");
+const { DTOSale } = require("./entity/DTOSale");
+const { DataSale } = require("./data/DataSale");
 
 
 //#region ADMIN
@@ -45,21 +48,56 @@ const { DTOAdministrator } = require("./entity/DTOAdministrator");
 //     }
 //     registerAdmin().then()
 
-//  async function updateAdmin() {
+//  async function updateNameAdmin() {
 //             let dtoadmin = new DTOAdministrator();
 //             dtoadmin.IdAdministrator =  3;
 //             dtoadmin.NameAdmin = "User1";
             
-//             let updateAdmin = await 
-//             DataAdministrator.updateAdmin(dtoadmin);
-//             if (updateAdmin===-1) {
+//             let updateNameAdmin = await 
+//             DataAdministrator.updateNameAdmin(dtoadmin);
+//             if (updateNameAdmin===-1) {
 //                 throw new
 //                  Error("The idadmin does not  exists");
 //             }
            
 //             console.log("Admin update successfully");
 //     }
-//     updateAdmin().then()
+//     updateNameAdmin().then()
+
+//  async function updatePassword() 
+//  {
+           
+            
+//             let idadmin=4;
+//             let newpassword="password44";
+//             let currentpassword="password4";
+//             let updatePassword = await 
+//             DataAdministrator.updatePassword(idadmin,newpassword,currentpassword);
+//             if (updatePassword===-1) {
+//                 throw new Error("Incorrect idadmin and/or password");
+//             }
+//             if (updatePassword===-2) {
+//                 throw new 
+//                 Error("Passwordd must have more than 8 characters");
+//             }
+           
+//             console.log("Password update successfully");
+// }
+// updatePassword().then()
+
+    //   async function deleteAdmin() {
+        
+
+    //         let deleteAdmin = await DataAdministrator.deleteAdmin(2);
+    //         if (deleteAdmin===-1) {
+    //             throw new
+    //              Error("The idadmin does not exists");
+    //         }
+           
+    //         console.log("Administrator delete successfully");
+    //     }
+   
+    //     deleteAdmin().then()
 
 //#region ADMIN
 //#region CUSTOMERS
@@ -180,6 +218,53 @@ const { DTOAdministrator } = require("./entity/DTOAdministrator");
  
 //#endregion CUSTOMERS
 
+//#region LOGIN ADMIN
+
+    // async function loginAdmin() {
+       
+
+    //         let loginAdmin = await DataLoginAdmin.
+    //         loginAdmin("Username4","password44");
+    //         if (loginAdmin===-1) {
+    //             throw new
+    //              Error("The Password or Username is incorrect");
+    //         }
+           
+    //         console.log(loginAdmin);
+        
+    // }
+    // loginAdmin().then()
+
+    // async function existLoginUser() {
+       
+    //     let existLoginAdmin = 
+    //     await DataLoginAdmin.existLoginAdmin(4,"Username4")
+    //     console.log(existLoginAdmin);
+        
+    // }
+    // existLoginUser().then()
+
+
+
+    // async function logoutAdmin() {
+       
+
+    //         let logout = await DataLoginAdmin.
+    //         logout(4);
+    //         if (logout===-1) {
+    //             throw new
+    //              Error("The User is not logged in");
+    //         }
+           
+    //         console.log("The User has logged out");
+        
+    // }
+    // logoutAdmin().then()
+
+
+
+//#endregion LOGIN ADMIN
+
 //#region LOGIN CUSTOMER
 
 // async function loginCustomer() {
@@ -197,14 +282,14 @@ const { DTOAdministrator } = require("./entity/DTOAdministrator");
 //     }
 //     loginCustomer().then()
 
-    // async function existLoginUser() {
+    // async function existLoginCustomer() {
        
     //     let existLoginCustomer = 
     //     await DataLoginCustomer.existLoginCustomer(4,"Username2")
     //     console.log(existLoginCustomer);
         
     // }
-    // existLoginUser().then()
+    // existLoginCustomer().then()
 
 
 
@@ -570,3 +655,31 @@ const { DTOAdministrator } = require("./entity/DTOAdministrator");
 // updateOffer().then()
 
 //#endregion OFFERS
+
+//#region SALE
+
+
+async function registerSale() {
+       
+      
+           let dtosale=new DTOSale();
+
+           dtosale.PaymentMethod = "Cash";
+           dtosale.Observation = "Observation"  ;
+         
+           dtosale.Vat =15 ;
+
+            let arraydetailsale=[];
+            arraydetailsale.push({quantity:1,priceproduct:40,idproduct:60})
+            arraydetailsale.push({quantity:2,priceproduct:43,idproduct:63})
+          
+          
+            let registerOnlineSale = await DataSale.registerOnlineSale(dtosale,arraydetailsale);
+            console.log(registerOnlineSale);
+     
+      
+    }
+    registerSale().then()
+
+
+//#endregion SALE

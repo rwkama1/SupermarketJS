@@ -283,7 +283,7 @@ class DataProduct {
                 ELSE CAST(0 AS bit)
             END AS InOffer,
             P.PriceProduct AS RegularPrice,
-        ROUND(ISNULL(PR.Rating, 0) * 4 / 5 + 1, 2) AS Rating
+           ROUND(ISNULL(PR.Rating, 0) * 4 / 5 + 1, 2) AS Rating
         
             FROM Product P
             LEFT JOIN Offers O ON P.IdProduct = O.IdProduct
