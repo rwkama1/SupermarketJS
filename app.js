@@ -666,15 +666,19 @@ async function registerSale() {
 
            dtosale.PaymentMethod = "Cash";
            dtosale.Observation = "Observation"  ;
-         
+           dtosale.IdCustomer = 4  ;
            dtosale.Vat =15 ;
 
             let arraydetailsale=[];
-            arraydetailsale.push({quantity:1,priceproduct:40,idproduct:60})
+            arraydetailsale.push({quantity:1,priceproduct:41,idproduct:61})
             arraydetailsale.push({quantity:2,priceproduct:43,idproduct:63})
           
           
             let registerOnlineSale = await DataSale.registerOnlineSale(dtosale,arraydetailsale);
+            if (registerOnlineSale===-1) {
+                throw new
+                Error(" The customer does not exists");   
+             }
             console.log(registerOnlineSale);
      
       
