@@ -425,7 +425,44 @@ class DataProduct {
           return arrayn;
         
     }
+    static  getTodayProductsOffers=async()=>
+    {
+        let arrayn=[];
+        let queryinsert = `
+  
+        SELECT P.IdProduct, 
+        P.NameProduct,
+         P.DescriptionProduct,
+        CASE WHEN O.IdOffer IS NULL THEN P.PriceProduct
+             WHEN GETDATE() BETWEEN O.Startt_date AND O.End_date
+              THEN O.Offer_price
+             ELSE P.PriceProduct
+        END AS PriceProduct,
+        P.UrlImg,
+         P.StockProduct,
+        CASE WHEN O.IdOffer IS NULL THEN CAST(0 AS bit)
+             WHEN GETDATE() BETWEEN O.Startt_date AND O.End_date 
+             THEN CAST(1 AS bit)
+             ELSE CAST(0 AS bit)
+        END AS InOffer,
+            P.PriceProduct AS RegularPrice
+            FROM Product P
+         JOIN Offers O ON P.IdProduct = O.IdProduct
+         WHERE GETDATE() >= O.Startt_date
+         AND GETDATE() <= O.End_date;
 
+        `
+        let pool = await Conection.conection();
+        const result = await pool.request()
+         .query(queryinsert)
+         for (let re of result.recordset) {
+            let dtoproduct = new DTOProduct();   
+            this.getInformation(dtoproduct,re);
+            arrayn.push(dtoproduct);
+         }
+          return arrayn;
+        
+    }
     //GET INFORMATION
     
     static getInformation(dtoproduct,result)

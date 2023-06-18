@@ -225,7 +225,31 @@ class DataSale
              return arrayn;
            
        }
+       static  getConfirmedSalesByCustomer=async(namecustomer="")=>
+       {
+          let arrayn=[];
+           let queryinsert = `
 
+           SELECT S.IdSale, S.Sale_Date, S.Subtotal,
+            S.PaymentMethod, S.Vat, S.Total_amount, 
+            S.Observation, S.Statee, C.IdCustomer, C.NameCustomer
+           FROM Sale S
+           JOIN Customer C ON S.IdCustomer = C.IdCustomer
+           WHERE S.Statee = 'Confirmed'
+            AND C.NameCustomer LIKE '%${namecustomer}%'
+
+           `
+           let pool = await Conection.conection();
+           const result = await pool.request()
+            .query(queryinsert)
+            for (let re of result.recordset) {
+                let dtosale = new DTOSale();   
+                this.getInformation(dtosale,re);
+                arrayn.push(dtosale);
+             }
+             return arrayn;
+           
+       }
 
   //GET INFORMATION
     

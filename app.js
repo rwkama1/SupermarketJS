@@ -547,6 +547,15 @@ const { DataSale } = require("./data/DataSale");
 //         }
 //         getProductById().then()
 
+
+   async function getTodayProductsOffers() {
+               
+                let getTodayProductsOffers = 
+                await DataProduct.getTodayProductsOffers();
+                console.log(getTodayProductsOffers);
+        }
+        getTodayProductsOffers().then()
+
 //#endregion PRODUCT
 
 //#region  PRODUCT RATINGS
@@ -749,6 +758,15 @@ const { DataSale } = require("./data/DataSale");
 //                 console.log(getPendingSalesByCustomer);
 //         }
 //         getPendingSalesByCustomer().then()
+
+
+//    async function getConfirmedSalesByCustomer() {
+               
+//                 let getConfirmedSalesByCustomer = 
+//                 await DataSale.getConfirmedSalesByCustomer();
+//                 console.log(getConfirmedSalesByCustomer);
+//         }
+//         getConfirmedSalesByCustomer().then()
 
 
 //#endregion SALE
