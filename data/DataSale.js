@@ -1,5 +1,7 @@
 
-const { DTOProduct } = require("../entity/DTOProduct");
+const { Int } = require("mssql");
+const { DTOSale } = require("../entity/DTOSale");
+
 const { Conection } = require("./Connection");
 
 class DataSale
@@ -67,7 +69,7 @@ class DataSale
 
                 UPDATE Sale
                 SET Subtotal = @Subtotal,
-                    Vat = @VatRate,
+                    Vat = @VatPercentage,
                     Total_amount = @TotalAmount
                 WHERE IdSale = @SaleId;
                 
@@ -95,32 +97,175 @@ class DataSale
           pool.close();
           return resultquery;
   
-    }
+        }
+        static confirmSale=async(idsale)=>
+        {
+            let resultquery;
+           
+              let queryinsert = `  
+
+              IF NOT EXISTS ( SELECT idsale 
+                FROM Sale WHERE  idsale=@idsale)
+              BEGIN
+                select -1 as notexistsale
+              END
+            ELSE
+            BEGIN
+               UPDATE Sale SET statee='Confirmed'
+               WHERE idsale=@idsale
+               select 1 as confirmsuccess
+            END
+          
+              `;
+              let pool = await Conection.conection();
+              const result = await pool.request()
+              .input('idsale', Int,idsale)
+              .query(queryinsert)
+               resultquery = result.recordset[0].notexistsale;
+                if(resultquery===undefined)
+                {
+                    resultquery = result.recordset[0].confirmsuccess;
+                    
+                }
+              pool.close();
+              return resultquery;
+      
+        }
+        static cancelSale=async(idsale)=>
+        {
+            let resultquery;
+           
+              let queryinsert = `  
+
+              IF NOT EXISTS ( SELECT idsale 
+                FROM Sale WHERE  idsale=@idsale)
+              BEGIN
+                select -1 as notexistsale
+              END
+            ELSE
+            BEGIN
+               UPDATE Sale SET statee='Canceled'
+               WHERE idsale=@idsale
+               select 1 as canceledsuccess
+            END
+          
+              `;
+              let pool = await Conection.conection();
+              const result = await pool.request()
+              .input('idsale', Int,idsale)
+              .query(queryinsert)
+               resultquery = result.recordset[0].notexistsale;
+                if(resultquery===undefined)
+                {
+                    resultquery = result.recordset[0].canceledsuccess;
+                    
+                }
+              pool.close();
+              return resultquery;
+      
+        }
+        static deliverSale=async(idsale)=>
+        {
+            let resultquery;
+           
+              let queryinsert = `  
+
+              IF NOT EXISTS ( SELECT idsale 
+                FROM Sale WHERE  idsale=@idsale)
+              BEGIN
+                select -1 as notexistsale
+              END
+            ELSE
+            BEGIN
+               UPDATE Sale SET statee='Delivered'
+               WHERE idsale=@idsale
+               select 1 as deliversuccess
+            END
+          
+              `;
+              let pool = await Conection.conection();
+              const result = await pool.request()
+              .input('idsale', Int,idsale)
+              .query(queryinsert)
+               resultquery = result.recordset[0].notexistsale;
+                if(resultquery===undefined)
+                {
+                    resultquery = result.recordset[0].deliversuccess;
+                    
+                }
+              pool.close();
+              return resultquery;
+      
+        }
 
        //GET
 
+       static  getPendingSalesByCustomer=async(namecustomer="")=>
+       {
+          let arrayn=[];
+           let queryinsert = `
 
-     //#region OTHERS
+           SELECT S.IdSale, S.Sale_Date, S.Subtotal,
+            S.PaymentMethod, S.Vat, S.Total_amount, 
+            S.Observation, S.Statee, C.IdCustomer, C.NameCustomer
+           FROM Sale S
+           JOIN Customer C ON S.IdCustomer = C.IdCustomer
+           WHERE S.Statee = 'Pending'
+            AND C.NameCustomer LIKE '%${namecustomer}%'
 
- 
-   static forAddDetailSale(array)
-   //Used to add multiple detail order
-   {
-    let stringelement="";
-    for (let index = 0; index < array.length; index++) {
-        const element = array[index];
-        stringelement=stringelement+
-       `
-        insert into DetailSale values
-         (${element.quantity},${element.priceproduct},${element.idproduct}
-            ,@SaleId
-         )
+           `
+           let pool = await Conection.conection();
+           const result = await pool.request()
+            .query(queryinsert)
+            for (let re of result.recordset) {
+                let dtosale = new DTOSale();   
+                this.getInformation(dtosale,re);
+                arrayn.push(dtosale);
+             }
+             return arrayn;
+           
+       }
 
-        `
-    }
-    return stringelement
+
+  //GET INFORMATION
+    
+  static getInformation(dtosale,result)
+  {
+    dtosale.IdSale = result.IdSale;
+    dtosale.Sale_Date = result.Sale_Date;
+    dtosale.Subtotal = result.Subtotal;
+    dtosale.PaymentMethod = result.PaymentMethod;
+    dtosale.Vat = result.Vat;
+    dtosale.Total_amount = result.Total_amount;
+    dtosale.Observation = result.Observation;
+    dtosale.Statee = result.Statee;
+    dtosale.IdCustomer = result.IdCustomer;
+    dtosale.NameCustomer = result.NameCustomer;
    
-   }
+  }
+
+
+    //#region OTHERS
+
+    static forAddDetailSale(array)
+    //Used to add multiple detail order
+    {
+        let stringelement="";
+        for (let index = 0; index < array.length; index++) {
+            const element = array[index];
+            stringelement=stringelement+
+        `
+            insert into DetailSale values
+            (${element.quantity},${element.priceproduct},${element.idproduct}
+                ,@SaleId
+            )
+
+            `
+        }
+        return stringelement
+    
+    }
+
 }
 module.exports = { DataSale };
 

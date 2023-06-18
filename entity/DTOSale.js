@@ -9,7 +9,7 @@ class DTOSale
 	Observation ="";
 	Statee="";
 	IdCustomer=0;
-   
+	NameCustomer="";
      constructor()
      {
           

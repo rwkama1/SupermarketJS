@@ -659,31 +659,96 @@ const { DataSale } = require("./data/DataSale");
 //#region SALE
 
 
-async function registerSale() {
+// async function registerSale() {
        
       
-           let dtosale=new DTOSale();
+//            let dtosale=new DTOSale();
 
-           dtosale.PaymentMethod = "Cash";
-           dtosale.Observation = "Observation"  ;
-           dtosale.IdCustomer = 4  ;
-           dtosale.Vat =15 ;
+//            dtosale.PaymentMethod = "Cash";
+//            dtosale.Observation = "Observation"  ;
+//            dtosale.IdCustomer = 4  ;
+//            dtosale.Vat =15 ;
 
-            let arraydetailsale=[];
-            arraydetailsale.push({quantity:1,priceproduct:41,idproduct:61})
-            arraydetailsale.push({quantity:2,priceproduct:43,idproduct:63})
+//             let arraydetailsale=[];
+//             arraydetailsale.push({quantity:1,priceproduct:41,idproduct:61})
+//              arraydetailsale.push({quantity:2,priceproduct:43,idproduct:63})
+//              arraydetailsale.push({quantity:3,priceproduct:44,idproduct:64})
           
-          
-            let registerOnlineSale = await DataSale.registerOnlineSale(dtosale,arraydetailsale);
-            if (registerOnlineSale===-1) {
-                throw new
-                Error(" The customer does not exists");   
-             }
-            console.log(registerOnlineSale);
+//             let registerOnlineSale = await DataSale.registerOnlineSale(dtosale,arraydetailsale);
+//             if (registerOnlineSale===-1) {
+//                 throw new
+//                 Error(" The customer does not exists");   
+//              }
+//             console.log(" The sale was registered successfully");
      
       
-    }
-    registerSale().then()
+//     }
+//     registerSale().then()
+
+
+// async function confirmSale() {
+       
+      
+             
+//               let idsale=8;
+              
+//                 let confirmSale = await
+//                  DataSale.confirmSale(idsale);
+//                 if (confirmSale===-1) {
+//                     throw new
+//                     Error(" The sale does not exists");   
+//                  }
+//                 console.log(" The sale was confirmed successfully");
+         
+          
+//         }
+//         confirmSale().then()
+
+// async function deliverSale() {
+       
+      
+             
+//               let idsale=8;
+              
+//                 let deliverSale = await
+//                  DataSale.deliverSale(idsale);
+//                 if (deliverSale===-1) {
+//                     throw new
+//                     Error(" The sale does not exists");   
+//                  }
+//                 console.log(" The sale was delivered successfully");
+         
+          
+//         }
+//         deliverSale().then()
+
+// async function cancelSale() {
+       
+      
+             
+//     let idsale=8;
+    
+//       let cancelSale = await
+//        DataSale.cancelSale(idsale);
+//       if (cancelSale===-1) {
+//           throw new
+//           Error(" The sale does not exists");   
+//        }
+//       console.log(" The sale was canceled successfully");
+
+
+// }
+// cancelSale().then()
+
+
+
+//    async function getPendingSalesByCustomer() {
+               
+//                 let getPendingSalesByCustomer = 
+//                 await DataSale.getPendingSalesByCustomer();
+//                 console.log(getPendingSalesByCustomer);
+//         }
+//         getPendingSalesByCustomer().then()
 
 
 //#endregion SALE
