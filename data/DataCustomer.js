@@ -244,6 +244,7 @@ class DataCustomer {
         
     }
     
+
     //GET
     
     static  getCustomerById=async(idcustomer)=>

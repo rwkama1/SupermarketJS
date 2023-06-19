@@ -1,5 +1,14 @@
 USE supermarkett
 go
+
+CREATE TABLE Administrator (
+    IdAdministrator INT NOT NULL PRIMARY KEY Identity(1,1),
+    NameAdmin VARCHAR(50) NOT NULL,
+    UserrName VARCHAR(50) NOT NULL,
+    Passwordd VARCHAR(1000) NOT NULL,
+	Active bit not null
+)
+go
 CREATE TABLE Category(
 	IdCategory int NOT NULL PRIMARY KEY Identity(1,1) ,
 	NameCategory varchar(100) not null ,
@@ -107,6 +116,12 @@ CREATE TABLE LoginCustomer(
 	LoginDateAndTime DateTime  not null,
 )
 go
+CREATE TABLE LoginAdministrator(
+	IdLoginAdmin int NOT NULL PRIMARY KEY Identity(1,1) ,
+	IdAdmin int not null Foreign Key References Administrator(IdAdministrator),
+	LoginDateAndTime DateTime  not null,
+)
+go
 
 
 
@@ -120,38 +135,21 @@ go
 --DROP TABLE Suppliers;
 --DROP TABLE Category;
 --DROP TABLE ProductRatings;
+--DROP TABLE LoginAdministrator;
+--DROP TABLE Administrator;
+
 
 --SELECT * FROM Category;
 --SELECT * FROM Suppliers;
 --SELECT * FROM Customer;
 --SELECT * FROM Product;
 --SELECT * FROM Discounts;
+--SELECT * FROM Administrator;
 --SELECT * FROM Offers;
---SELECT * FROM Sale;
---SELECT * FROM DetailSale;
+SELECT * FROM Sale;
+SELECT * FROM DetailSale;
 --SELECT * FROM LoginCustomer;
 --SELECT * FROM ProductRatings;
+--SELECT * FROM LoginAdministrator;
 
-
- delete from Suppliers
- delete from customer
- delete from OFFERs
-  delete from product
-
-		 select * from customer
-		  select * from category
-		  select * from Suppliers
-		 select * from Product
-		select * from OFFERs
-		select * from ProductRatings
-	SELECT SupplierId FROM Suppliers 
-    WHERE SupplierId =109 
-
-
-
-
-
-	
-		
-
-
+ 

@@ -430,7 +430,8 @@ class DataProduct {
         let arrayn=[];
         let queryinsert = `
   
-        SELECT P.IdProduct, 
+        SELECT
+         P.IdProduct, 
         P.NameProduct,
          P.DescriptionProduct,
         CASE WHEN O.IdOffer IS NULL THEN P.PriceProduct
@@ -480,68 +481,3 @@ class DataProduct {
 
 }
 module.exports = { DataProduct };
-
-
-
-    //static async  getProducts() {
-    //     const conection = await dbconection
-    //     try {
-    
-    //         //let query = { Namep: 'Ketchup' }
-    
-    //         const collection = conection.db("BDSupermarket").collection("Product");
-    //         const result = await collection.find({}).toArray();
-    //         let array = [];
-    //         for (var p of result) {
-    //             var obj = new DTProduct(p._id, p.Namep, p.PriceP)
-    //             array.push(obj);
-    //         }
-    //         return array;
-    //         conection.close();
-    
-    
-    //     }
-    //     catch (e) {
-    //         return e.message
-    //     }
-    
-    // }
-    // static async getProductsExpression(expression) {
-    //     const conection = await dbconection
-    //     try {
-    
-    //         //let query = { Namep: /^expression/ };
-    //         let query = {Namep: { $regex: expression } }
-    //        const collection = conection.db("BDSupermarket").collection("Product");
-    //        const result = await collection.find(query).toArray();
-    //        let array =[];
-    //        for (var p of result) {
-    //             var obj = new DTProduct(p._id, p.Namep, p.PriceP)
-    //             array.push(obj);
-    //         }
-    //         return array;
-    //         conection.close();
-    
-    
-    //     }
-    //     catch (e) {
-    //         return e.message
-    //     }
-    
-    // }
-    // static async getProduct(name) {
-    //     //const conection =await  dbconection.connect();
-    //     const conection = await dbconection
-    //     try {
-    
-    //         let query = { Namep: name }
-    //         const collection = conection.db("BDSupermarket").collection("Product");
-    //         const p = await collection.findOne(query);
-    //         var obj = new DTProduct(p._id, p.Namep, p.PriceP);
-    //         return obj;
-            
-    //     }
-    //     catch (e) {
-    //         return e.message
-    //     }
-    // }
