@@ -1,6 +1,6 @@
 {
   "name": "supermarketjs",
-  "version": "1.0.4",
+  "version": "1.0.5",
 
   "description": "This package contains a backend of what would be the logic of a supermarking software, the architecture used is made in 3 layers",
   "main": "app.js",

@@ -668,32 +668,32 @@ const { DataSale } = require("./data/DataSale");
 //#region SALE
 
 
-async function registerSale() {
+// async function registerSale() {
        
       
-           let dtosale=new DTOSale();
+//            let dtosale=new DTOSale();
 
-           dtosale.PaymentMethod = "Cash";
-           dtosale.Observation = "Observation"  ;
-           dtosale.IdCustomer = 4  ;
-           dtosale.Vat =15 ;
+//            dtosale.PaymentMethod = "Cash";
+//            dtosale.Observation = "Observation"  ;
+//            dtosale.IdCustomer = 4  ;
+//            dtosale.Vat =15 ;
 
-            let arraydetailsale=[];
-            arraydetailsale.push({quantity:1,priceproduct:41,idproduct:61})
-             arraydetailsale.push({quantity:2,priceproduct:43,idproduct:63})
-             arraydetailsale.push({quantity:3,priceproduct:44,idproduct:64})
-             arraydetailsale.push({quantity:4,priceproduct:45,idproduct:65})
+//             let arraydetailsale=[];
+//             arraydetailsale.push({quantity:1,priceproduct:41,idproduct:61})
+//              arraydetailsale.push({quantity:2,priceproduct:43,idproduct:63})
+//              arraydetailsale.push({quantity:3,priceproduct:44,idproduct:64})
+//              arraydetailsale.push({quantity:4,priceproduct:45,idproduct:65})
           
-            let registerOnlineSale = await DataSale.registerOnlineSale(dtosale,arraydetailsale);
-            if (registerOnlineSale===-1) {
-                throw new
-                Error(" The customer does not exists");   
-             }
-            console.log(" The sale was registered successfully");
+//             let registerOnlineSale = await DataSale.registerOnlineSale(dtosale,arraydetailsale);
+//             if (registerOnlineSale===-1) {
+//                 throw new
+//                 Error(" The customer does not exists");   
+//              }
+//             console.log(" The sale was registered successfully");
      
       
-    }
-    registerSale().then()
+//     }
+//     registerSale().then()
 
 
 // async function confirmSale() {

@@ -146,8 +146,8 @@ go
 --SELECT * FROM Discounts;
 --SELECT * FROM Administrator;
 --SELECT * FROM Offers;
-SELECT * FROM Sale;
-SELECT * FROM DetailSale;
+-- SELECT * FROM Sale;
+-- SELECT * FROM DetailSale;
 --SELECT * FROM LoginCustomer;
 --SELECT * FROM ProductRatings;
 --SELECT * FROM LoginAdministrator;
