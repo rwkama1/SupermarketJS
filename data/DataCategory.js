@@ -1,4 +1,5 @@
 const { Conection } = require("./Connection");
+
 class DataCategory {
     
     //SET

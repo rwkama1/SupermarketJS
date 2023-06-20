@@ -41,13 +41,19 @@ class DataOffer {
                                 
                             BEGIN 
 
-                            INSERT  INTO Offers 
-                            values 
-                            (@DescriptionOffer,@OfferPrice,@Start_date,
-                            @End_date,@IdProduct)
-
-                            select 1 insertsuccess
-
+                                IF EXISTS (SELECT IdProduct 
+                                    FROM Product WHERE IdProduct = @IdProduct 
+                                    AND StockProduct > 0 and active=1)
+                                BEGIN
+                                    INSERT INTO Offers (DescriptionOffer, Offer_price, Start_date, End_date, IdProduct)
+                                    VALUES (@DescriptionOffer, @OfferPrice, @Start_date, @End_date, @IdProduct);
+                                    
+                                    SELECT 1 AS insertsuccess;
+                                END
+                                ELSE
+                                BEGIN
+                                    SELECT -4 AS outofstock;
+                                END
                             END
                             ELSE
                             BEGIN
@@ -79,7 +85,12 @@ class DataOffer {
                     if(resultquery===undefined)
                     {
                         resultquery = result.recordset[0].insertsuccess;
-                       
+                        if(resultquery===undefined)
+                        {
+                            resultquery = result.recordset[0].outofstock;
+                           
+                            
+                        }
                         
                     }
                     

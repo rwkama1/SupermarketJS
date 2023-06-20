@@ -142,14 +142,14 @@ go
 --SELECT * FROM Category;
 --SELECT * FROM Suppliers;
 --SELECT * FROM Customer;
---SELECT * FROM Product;
 --SELECT * FROM Discounts;
 --SELECT * FROM Administrator;
 --SELECT * FROM Offers;
--- SELECT * FROM Sale;
--- SELECT * FROM DetailSale;
+--SELECT * FROM Product;
+ --SELECT * FROM Sale;
+--SELECT * FROM DetailSale;
 --SELECT * FROM LoginCustomer;
 --SELECT * FROM ProductRatings;
 --SELECT * FROM LoginAdministrator;
 
- 
+

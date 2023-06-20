@@ -339,7 +339,7 @@ class DataProduct {
         FROM Product P
         LEFT JOIN Offers O ON P.IdProduct = O.IdProduct
         WHERE P.IdCategory = @CategoryId
-
+        AND P.StockProduct > 0;
         `
         let pool = await Conection.conection();
         const result = await pool.request()
@@ -375,6 +375,7 @@ class DataProduct {
         P.PriceProduct AS RegularPrice
         FROM Product P
         LEFT JOIN Offers O ON P.IdProduct = O.IdProduct
+        WHERE P.StockProduct > 0
         ORDER BY ISNULL(O.Offer_price, P.PriceProduct) ASC;
 
         `
@@ -400,11 +401,13 @@ class DataProduct {
             P.IdProduct, 
             P.NameProduct,
             P.DescriptionProduct,
-            P.UrlImg
+            P.UrlImg,
+            P.StockProduct
             FROM Product P
             INNER JOIN Category C ON P.IdCategory = C.IdCategory
             INNER JOIN Suppliers S ON P.SupplierId = S.SupplierId
             WHERE P.Active = 1
+            AND P.StockProduct > 0
             AND C.NameCategory LIKE '%${categoryname}%'
             AND S.SupplierName LIKE '%${suppliername}%'
             AND P.NameProduct LIKE '%${nameproduct}%'
@@ -450,6 +453,7 @@ class DataProduct {
             FROM Product P
          JOIN Offers O ON P.IdProduct = O.IdProduct
          WHERE GETDATE() >= O.Startt_date
+         AND P.StockProduct > 0
          AND GETDATE() <= O.End_date;
 
         `
@@ -476,6 +480,7 @@ class DataProduct {
         dtoproduct.InOffer = result.InOffer;
         dtoproduct.RegularPrice = result.RegularPrice;
         dtoproduct.Rating = result.Rating;
+        dtoproduct.StockProduct = result.StockProduct;
      
     }
 

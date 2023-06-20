@@ -1,7 +1,6 @@
 
 const { Int } = require("mssql");
 const { DTOSale } = require("../entity/DTOSale");
-
 const { Conection } = require("./Connection");
 
 class DataSale
@@ -104,17 +103,35 @@ class DataSale
            
               let queryinsert = `  
 
-              IF NOT EXISTS ( SELECT idsale 
-                FROM Sale WHERE  idsale=@idsale)
+              IF NOT EXISTS (SELECT idsale FROM Sale WHERE idsale = @idsale)
               BEGIN
-                select -1 as notexistsale
+                  SELECT -1 AS notexistsale
               END
-            ELSE
-            BEGIN
-               UPDATE Sale SET statee='Confirmed'
-               WHERE idsale=@idsale
-               select 1 as confirmsuccess
-            END
+              ELSE
+              BEGIN
+                  BEGIN TRANSACTION;
+              
+                  -- Deduct the stock quantity of products in the DetailSale table
+              
+                  UPDATE Product
+                  SET StockProduct = StockProduct - DS.Quantity
+                  FROM DetailSale DS
+                  INNER JOIN Product P ON DS.IdProduct = P.IdProduct
+                  WHERE DS.IdSale = @idsale;
+              
+                  -- Update the state of the sale to 'Confirmed'
+              
+                  UPDATE Sale
+                  SET statee = 'Confirmed'
+                  WHERE idsale = @idsale;
+              
+                  -- Commit the transaction
+              
+                  COMMIT TRANSACTION;
+              
+                  SELECT 1 AS confirmsuccess;
+              END
+              
           
               `;
               let pool = await Conection.conection();
@@ -251,22 +268,22 @@ class DataSale
            
        }
 
-  //GET INFORMATION
-    
-  static getInformation(dtosale,result)
-  {
-    dtosale.IdSale = result.IdSale;
-    dtosale.Sale_Date = result.Sale_Date;
-    dtosale.Subtotal = result.Subtotal;
-    dtosale.PaymentMethod = result.PaymentMethod;
-    dtosale.Vat = result.Vat;
-    dtosale.Total_amount = result.Total_amount;
-    dtosale.Observation = result.Observation;
-    dtosale.Statee = result.Statee;
-    dtosale.IdCustomer = result.IdCustomer;
-    dtosale.NameCustomer = result.NameCustomer;
-   
-  }
+      //GET INFORMATION
+        
+      static getInformation(dtosale,result)
+      {
+        dtosale.IdSale = result.IdSale;
+        dtosale.Sale_Date = result.Sale_Date;
+        dtosale.Subtotal = result.Subtotal;
+        dtosale.PaymentMethod = result.PaymentMethod;
+        dtosale.Vat = result.Vat;
+        dtosale.Total_amount = result.Total_amount;
+        dtosale.Observation = result.Observation;
+        dtosale.Statee = result.Statee;
+        dtosale.IdCustomer = result.IdCustomer;
+        dtosale.NameCustomer = result.NameCustomer;
+      
+      }
 
 
     //#region OTHERS
