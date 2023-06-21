@@ -777,4 +777,3 @@ const { DataSale } = require("./data/DataSale");
 //#endregion SALE
 
 
-

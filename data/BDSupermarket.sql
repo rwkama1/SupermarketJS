@@ -153,3 +153,24 @@ go
 --SELECT * FROM LoginAdministrator;
 
 
+   
+        DECLARE @CategoryId INT;
+        SET @CategoryId = 1;
+        
+        SELECT P.IdProduct, P.NameProduct, P.DescriptionProduct,
+        CASE WHEN O.IdOffer IS NULL THEN P.PriceProduct
+             WHEN GETDATE() BETWEEN O.Startt_date AND O.End_date
+              THEN O.Offer_price
+             ELSE P.PriceProduct
+        END AS PriceProduct,
+        P.UrlImg, P.StockProduct,
+        CASE WHEN O.IdOffer IS NULL THEN CAST(0 AS bit)
+             WHEN GETDATE() BETWEEN O.Startt_date AND O.End_date 
+             THEN CAST(1 AS bit)
+             ELSE CAST(0 AS bit)
+        END AS InOffer,
+        P.PriceProduct AS RegularPrice
+        FROM Product P
+        LEFT JOIN Offers O ON P.IdProduct = O.IdProduct
+        WHERE P.IdCategory = @CategoryId
+        AND P.StockProduct > 0;

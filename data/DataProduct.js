@@ -468,6 +468,7 @@ class DataProduct {
           return arrayn;
         
     }
+    
     //GET INFORMATION
     
     static getInformation(dtoproduct,result)
